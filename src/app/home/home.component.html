@@ -1,9 +1,6 @@
 <div class="max-w-2xl w-screen p-3">
   <h1 class="mb-3">Users</h1>
   <section class="bg-sky-50 p-2 flex flex-col gap-4 rounded-sm">
-    @for (item of [{name:'test',id:1},{name:'test1',id:2},{name:'test2',id:3}];
-    track $index) {
-    <app-user-item [user]="item"></app-user-item>
-    }
+    <app-user-item *ngFor="let user of userList" [user]="user"></app-user-item>
   </section>
 </div>
