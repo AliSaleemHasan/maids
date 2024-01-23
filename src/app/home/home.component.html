@@ -3,14 +3,7 @@
   <section class="bg-sky-50 p-2 flex flex-col gap-4 rounded-sm">
     @for (item of [{name:'test',id:1},{name:'test1',id:2},{name:'test2',id:3}];
     track $index) {
-    <div class="flex justify-between items-center">
-      <p class="font-medium text-sky-500">
-        {{ item.name }}
-      </p>
-      <p class="font-medium">
-        {{ item.id }}
-      </p>
-    </div>
+    <app-user-item [user]="item"></app-user-item>
     }
   </section>
 </div>
