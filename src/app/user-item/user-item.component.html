@@ -1,8 +1,10 @@
-<div class="flex justify-between items-center">
-  <p class="font-medium text-sky-500">
-    {{ user.name }}
-  </p>
-  <p class="font-medium">
-    {{ user.id }}
-  </p>
-</div>
+<a [routerLink]="['/details/1']">
+  <div class="flex justify-between items-center">
+    <p class="font-medium text-sky-500">
+      {{ user.name }}
+    </p>
+    <p class="font-medium">
+      {{ user.id }}
+    </p>
+  </div>
+</a>
