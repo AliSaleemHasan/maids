@@ -1,0 +1,16 @@
+<div class="max-w-2xl w-screen p-3">
+  <h1 class="mb-3">Users</h1>
+  <section class="bg-sky-50 p-2 flex flex-col gap-4 rounded-sm">
+    @for (item of [{name:'test',id:1},{name:'test1',id:2},{name:'test2',id:3}];
+    track $index) {
+    <div class="flex justify-between items-center">
+      <p class="font-medium text-sky-500">
+        {{ item.name }}
+      </p>
+      <p class="font-medium">
+        {{ item.id }}
+      </p>
+    </div>
+    }
+  </section>
+</div>
