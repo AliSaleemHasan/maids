@@ -1,23 +1,29 @@
-<div class="max-w-2xl w-screen h-[50vh]">
-  <section class="flex flex-col h-full relative bg-gray-950">
-    <div class="h-1/3 bg-gray-800"></div>
-    <img
-      src="{{ user.avatar }}"
-      width="100"
-      class="max-w-32 m-auto rounded-full absolute left-0 right-0 top-10"
-      width="100%"
-      height="auto"
-    />
-    <div class="m-auto h-1/4 flex flex-col gap-6">
-      <h1 class="text-3xl font-semibold">
-        {{ user.first_name }} {{ user.last_name }}
-      </h1>
-      <h2 class="text-3xl text-sky-500 font-semibold text-center">
-        {{ user.id }}
-      </h2>
-    </div>
-    <a [routerLink]="['/']" class="w-full p-2 text-center cursor-pointer"
-      >Go Back</a
-    >
-  </section>
-</div>
+<ng-container *ngIf="user$ | async as user; else loading">
+  <div class="max-w-2xl w-screen h-[50vh]">
+    <section class="flex flex-col h-full relative bg-gray-950">
+      <div class="h-1/3 bg-gray-800"></div>
+      <img
+        src="{{ user.data.avatar }}"
+        width="100"
+        class="max-w-32 m-auto rounded-full absolute left-0 right-0 top-10"
+        width="100%"
+        height="auto"
+      />
+      <div class="m-auto h-1/4 flex flex-col gap-6">
+        <h1 class="text-3xl font-semibold">
+          {{ user.data.first_name }} {{ user.data.last_name }}
+        </h1>
+        <h2 class="text-3xl text-sky-500 font-semibold text-center">
+          {{ user.data.id }}
+        </h2>
+      </div>
+      <a [routerLink]="['/']" class="w-full p-2 text-center cursor-pointer"
+        >Go Back</a
+      >
+    </section>
+  </div>
+</ng-container>
+
+<ng-template #loading>
+  <app-loading></app-loading>
+</ng-template>
