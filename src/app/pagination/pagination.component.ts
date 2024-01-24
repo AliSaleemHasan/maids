@@ -11,6 +11,7 @@ export class PaginationComponent {
   @Input() currentPage!: number;
   @Input() itemsPerPage!: number;
   @Input() totalItems!: number;
+  @Input() isLoading!: boolean;
   @Output() pageChanged: EventEmitter<number> = new EventEmitter();
 
   get totalPages(): number {

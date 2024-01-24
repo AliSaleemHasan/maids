@@ -1,12 +1,22 @@
 <div class="max-w-2xl w-screen p-3">
   <h1 class="mb-3">Users</h1>
   <section class="py-2 flex flex-col rounded-sm">
-    <app-user-item *ngFor="let user of userList" [user]="user"></app-user-item>
-    <app-pagination
-      [currentPage]="currentPage"
-      [itemsPerPage]="itemsPerPage"
-      [totalItems]="totalItems"
-      (pageChanged)="onPageChange($event)"
-    ></app-pagination>
+    <ng-container *ngIf="users$ | async as userList; else loading">
+      <app-user-item
+        *ngFor="let user of userList.data"
+        [user]="user"
+      ></app-user-item>
+      <app-pagination
+        [currentPage]="currentPage"
+        [itemsPerPage]="itemsPerPage"
+        [totalItems]="totalItems"
+        (pageChanged)="onPageChange($event)"
+      ></app-pagination>
+    </ng-container>
+    <ng-template #loading>
+      <section
+        class="flex-1 w-screen max-w-2xl h-[60vh] bg-gray-500 animate-pulse"
+      ></section>
+    </ng-template>
   </section>
 </div>
