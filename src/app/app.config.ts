@@ -7,16 +7,20 @@ import {
 } from '@angular/common/http';
 import { importProvidersFrom } from '@angular/core';
 import { routes } from './app.routes';
-import {
-  provideClientHydration,
-  withNoHttpTransferCache,
-} from '@angular/platform-browser';
+import { provideClientHydration } from '@angular/platform-browser';
+import { provideStore } from '@ngrx/store';
+import { reducers, metaReducers } from './redux/reducers';
+import { provideEffects } from '@ngrx/effects';
+import { SearchEffects } from './redux/effects/search.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
-    provideClientHydration(withNoHttpTransferCache()),
+    provideClientHydration(),
     importProvidersFrom(HttpClientModule),
     provideHttpClient(withFetch()),
+    provideStore(reducers, { metaReducers }),
+    provideEffects([SearchEffects]),
+    provideEffects(),
   ],
 };

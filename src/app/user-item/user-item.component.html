@@ -1,4 +1,4 @@
-<a [routerLink]="['details', user.id]">
+<a *ngIf="user; else noUser" [routerLink]="['details', user.id]">
   <div
     appItemHighlight
     class="min-h-20 flex justify-between items-center bg-gray-800 p-3"
@@ -20,3 +20,6 @@
   </div>
   <hr class="border-b-1 border-l-black" />
 </a>
+<ng-template #noUser>
+  <h1>no user found</h1>
+</ng-template>

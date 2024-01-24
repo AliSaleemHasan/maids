@@ -5,11 +5,19 @@ import { UserService } from '../user.service';
 import { CommonModule, NgFor } from '@angular/common';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { PaginatedResponse } from '../paginated-response';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { HeaderComponent } from '../header/header.component';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [UserItemComponent, NgFor, PaginationComponent, CommonModule],
+  imports: [
+    UserItemComponent,
+    NgFor,
+    PaginationComponent,
+    CommonModule,
+    HeaderComponent,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
@@ -19,10 +27,18 @@ export class HomeComponent {
   itemsPerPage: number = 10;
   totalItems!: number;
 
-  constructor(private service: UserService) {}
+  searchedUser$!: Observable<User>;
+  searchQuery$!: Observable<string>;
+
+  constructor(
+    private service: UserService,
+    private store: Store<{ searchQuery: string; user: User }>
+  ) {}
 
   ngOnInit(): void {
     this.fetchData();
+    this.searchedUser$ = this.store.select((state) => state.user);
+    this.searchQuery$ = this.store.select((state) => state.searchQuery);
   }
 
   fetchData(): void {
