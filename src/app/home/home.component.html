@@ -1,6 +1,12 @@
 <div class="max-w-2xl w-screen p-3">
   <h1 class="mb-3">Users</h1>
-  <section class="bg-sky-50 p-2 flex flex-col gap-4 rounded-sm">
+  <section class="py-2 flex flex-col rounded-sm">
     <app-user-item *ngFor="let user of userList" [user]="user"></app-user-item>
+    <app-pagination
+      [currentPage]="currentPage"
+      [itemsPerPage]="itemsPerPage"
+      [totalItems]="totalItems"
+      (pageChanged)="onPageChange($event)"
+    ></app-pagination>
   </section>
 </div>

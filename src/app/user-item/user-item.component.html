@@ -1,20 +1,19 @@
-<a [routerLink]="['/details/1']">
-  <div class="flex justify-between items-center">
-    <section class="flex items-center gap-2">
+<a [routerLink]="['details', user.id]">
+  <div class="min-h-20 flex justify-between items-center bg-gray-800 p-3">
+    <section class="flex items-center gap-4">
       <img
         loading="lazy"
         src="{{ user.avatar }}"
         class="rounded-full"
         width="40"
         height="40"
+        alt="{{ user.last_name }}{{ user.first_name }}_{{ user.avatar }}"
       />
-      <p class="font-medium text-sky-500">
-        {{ user.first_name }} {{ user.last_name }}
-      </p>
+      <p class="font-medium">{{ user.first_name }} {{ user.last_name }}</p>
     </section>
     <p class="font-medium">
       {{ user.id }}
     </p>
   </div>
-  <hr class="border-b-2 mt-2 border-white" />
+  <hr class="border-b-1 border-l-black" />
 </a>

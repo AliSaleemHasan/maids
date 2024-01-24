@@ -6,7 +6,8 @@ import {
   HttpRequest,
   HttpResponse,
 } from '@angular/common/http';
-import { PaginatedResponse } from './paginated-response';
+import { IResponse, PaginatedResponse } from './paginated-response';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -14,11 +15,14 @@ import { PaginatedResponse } from './paginated-response';
 export class UserService {
   readonly url = 'https://reqres.in/api/users';
   constructor(private http: HttpClient) {}
-  getUsers = () => {
+  getUsers = (page: number) => {
+    const params = new HttpParams().set('page', page.toString());
     return this.http.get<PaginatedResponse<User>>(this.url, {
-      params: {
-        page: 1,
-      },
+      params,
     });
+  };
+
+  getSingleUser = (id: number) => {
+    return this.http.get<IResponse<User>>(`${this.url}/${id}`);
   };
 }

@@ -5,3 +5,7 @@ export interface PaginatedResponse<T> {
   total: number;
   total_pages: number;
 }
+
+export interface IResponse<T> {
+  data: T;
+}
