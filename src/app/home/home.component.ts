@@ -1,9 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { UserItemComponent } from '../user-item/user-item.component';
 import { User } from '../user';
 import { UserService } from '../user.service';
 import { NgFor } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { PaginationComponent } from '../pagination/pagination.component';
 @Component({
   selector: 'app-home',
