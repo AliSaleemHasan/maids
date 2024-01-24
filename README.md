@@ -1,27 +1,33 @@
-# AliSaleemHasanMaidsAssignment
+# Declarations about the implementation methods:
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.1.0.
+### Caching
 
-## Development server
+- There are multiple methods and techniques used to cache HTTP requests in angular, many of which need
+  full implementation from scratch (like creating in memory cash using map object), and validation of this method is considerably hard.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- using the latest Angular SSR (server-side rendering) is one of the above-mentioned methods, and it is (in my opinion) one of the best ways, it defaults to cache on the server disk, and each request of static pages is cached by default (and all get requests are cached), I could've removed this way and implement a cache; however, I think this is more convenient for both performance and code clarity
 
-## Code scaffolding
+### Redux
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Redux is used to save search queries and search results (if found)
+the process is as follows:
 
-## Build
+1. the user writes a number (ID) to search for
+2. this number is dispatched to the redux store as "SearchQuery"
+3. a redux effect fires as correspondence to this state change and fetches single user data using API
+   (MORE on that later )
+4. The API results will be dispatched as user if found or the user in store will be set to null
+5. The userSearch component will select the user and conditionally render it
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+   #### PS: there is no way to reset search results other than manually delete the search query
 
-## Running unit tests
+   #### Why I am getting user data from API instead of using a simple array? find function or by using redux
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+   - first (array. find): let's say that I have 3 pages of users, I got the first page of users, and after that, I entered 12 as my search query, which is a user on the second page, in this case no search results will appear because I am setting results to an array without compounding them together (without memory caching). This is because I care about memory also
+   - second (redux): the same issue, redux will be a hard-to-implement and maintain way to cache and get users, and in some way, it may also store a lot of data (if the user navigates along dozens of pages) which will be a waste of time and memory
 
-## Running end-to-end tests
+   and because I am using server-side rendering and server caching, retrieving data will be very fast after the first time which is ideal for both time and memory
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### Finally: loading
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+I am using a simple "Loading..." text to show a loading state, the implementation is the same for all different components.
