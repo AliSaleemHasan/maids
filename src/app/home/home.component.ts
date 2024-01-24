@@ -5,9 +5,10 @@ import { UserService } from '../user.service';
 import { CommonModule, NgFor } from '@angular/common';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { PaginatedResponse } from '../paginated-response';
-import { Observable, of } from 'rxjs';
-import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 import { HeaderComponent } from '../header/header.component';
+import { UserSearchComponent } from '../user-search/user-search.component';
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -17,6 +18,7 @@ import { HeaderComponent } from '../header/header.component';
     PaginationComponent,
     CommonModule,
     HeaderComponent,
+    UserSearchComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
@@ -27,7 +29,6 @@ export class HomeComponent {
   itemsPerPage: number = 10;
   totalItems!: number;
 
-  searchedUser$!: Observable<User>;
   searchQuery$!: Observable<string>;
 
   constructor(
@@ -36,12 +37,11 @@ export class HomeComponent {
   ) {}
 
   ngOnInit(): void {
-    this.fetchData();
-    this.searchedUser$ = this.store.select((state) => state.user);
+    this.fetchUsers();
     this.searchQuery$ = this.store.select((state) => state.searchQuery);
   }
 
-  fetchData(): void {
+  fetchUsers(): void {
     this.users$ = this.service.getUsers(this.currentPage);
     this.users$.subscribe((res) => {
       this.currentPage = res.page;
@@ -51,6 +51,6 @@ export class HomeComponent {
   }
   onPageChange(page: number): void {
     this.currentPage = page;
-    this.fetchData();
+    this.fetchUsers();
   }
 }

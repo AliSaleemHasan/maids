@@ -1,0 +1,12 @@
+<div *ngIf="searchQuery$ | async" class="flex flex-col max-w-2xl m-auto gap-4">
+  <h1>Search Results:</h1>
+  <app-user-item
+    *ngIf="searchedUser$ | async; else noUser"
+    [user]="searchedUser$ | async"
+  ></app-user-item>
+  <ng-template #noUser>
+    <p class="text-red-600">
+      No User with ID = {{ searchQuery$ | async }} was found!
+    </p>
+  </ng-template>
+</div>
